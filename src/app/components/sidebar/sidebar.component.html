@@ -1,0 +1,50 @@
+<aside class="w-65 bg-white border-r border-gray-200 min-h-screen">
+  <nav class="p-4">
+    <!-- Menu Items -->
+    <div class="space-y-1">
+      <div *ngFor="let item of menuItems" class="mb-2">
+        <!-- Main Menu Item -->
+        <div class="flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer" 
+             [class.bg-blue-50]="item.active"
+             [class.hover:bg-gray-50]="!item.active">
+          <div class="flex items-center space-x-3">
+            <div class="w-6 h-6 text-gray-600">
+              <!-- Icons would be SVG or icon components -->
+              <div class="w-full h-full bg-gray-300 rounded"></div>
+            </div>
+            <span class="text-sm font-medium" 
+                  [class.text-blue-900]="item.active"
+                  [class.text-gray-700]="!item.active">
+              {{ item.label }}
+            </span>
+          </div>
+          <div *ngIf="item.children" class="w-4 h-4 text-gray-400">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Sub Menu Items -->
+        <div *ngIf="item.children" class="ml-9 mt-1 space-y-1">
+          <div *ngFor="let child of item.children" 
+               class="px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded cursor-pointer">
+            {{ child.label }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Logout -->
+    <div class="mt-auto pt-8">
+      <div class="flex items-center space-x-3 px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg cursor-pointer">
+        <div class="w-6 h-6">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+          </svg>
+        </div>
+        <span class="text-sm font-medium">Logout Account</span>
+      </div>
+    </div>
+  </nav>
+</aside>

@@ -1,0 +1,25 @@
+<div class="flex min-h-screen">
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Main Content -->
+  <main class="flex-1 bg-gray-50 p-8">
+    <!-- Hero Row -->
+    <app-hero-row></app-hero-row>
+
+    <!-- Stats -->
+    <app-stats></app-stats>
+
+    <!-- Recent Data Section -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+      <app-recent-flights></app-recent-flights>
+      <app-recent-employees></app-recent-employees>
+    </section>
+
+    <!-- Quick Actions -->
+    <app-quick-actions></app-quick-actions>
+  </main>
+</div>
+
+<!-- Footer -->
+<app-footer></app-footer>
