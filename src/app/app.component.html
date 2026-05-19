@@ -1,4 +1,20 @@
 <div class="min-h-screen bg-gray-50">
-  <app-topbar></app-topbar>
-  <router-outlet></router-outlet>
+  <!-- Merged topbar navigation with improved styling -->
+  <nav class="bg-white shadow-sm border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <h1 class="text-xl font-semibold text-gray-900">Dashboard App</h1>
+        </div>
+        <div class="flex items-center space-x-4">
+          <a routerLink="/dashboard" class="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Main content area with consistent spacing -->
+  <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <router-outlet></router-outlet>
+  </main>
 </div>

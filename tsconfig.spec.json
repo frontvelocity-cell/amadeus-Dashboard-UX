@@ -1,3 +1,4 @@
+```json
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
@@ -9,6 +10,8 @@
   },
   "include": [
     "src/**/*.spec.ts",
-    "src/**/*.d.ts"
+    "src/**/*.d.ts",
+    "__tests__/**/*.spec.ts"
   ]
 }
+```

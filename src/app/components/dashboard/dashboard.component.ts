@@ -24,4 +24,7 @@ import { FooterComponent } from '../footer/footer.component';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {}
+export class DashboardComponent {
+  // Added title property from second version
+  title = 'Dashboard';
+}
