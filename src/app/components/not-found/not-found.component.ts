@@ -1,3 +1,4 @@
+```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -10,3 +11,4 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./not-found.component.css']
 })
 export class NotFoundComponent {}
+```

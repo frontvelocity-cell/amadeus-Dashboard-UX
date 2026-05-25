@@ -10,14 +10,14 @@ import { FooterComponent } from './components/footer/footer.component';
   standalone: true,
   imports: [
     CommonModule, // Added for common Angular directives and pipes
-    RouterOutlet, // Present in both versions - enables routing
-    TopbarComponent, // Present in both versions - top navigation
-    SidebarComponent, // Added from second version - side navigation
-    FooterComponent // Added from second version - footer layout
+    RouterOutlet, // Enables routing functionality
+    TopbarComponent, // Top navigation component
+    SidebarComponent, // Side navigation component
+    FooterComponent // Footer layout component
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'flight-management-dashboard'; // Consistent descriptive title from both versions
+  title = 'flight-management-dashboard'; // Merged with more descriptive title
 }

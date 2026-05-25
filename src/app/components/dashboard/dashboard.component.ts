@@ -1,3 +1,4 @@
+```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -9,7 +10,7 @@ import { RecentEmployeesComponent } from '../recent-employees/recent-employees.c
 import { QuickActionsComponent } from '../quick-actions/quick-actions.component';
 import { FooterComponent } from '../footer/footer.component';
 
-// Merged interfaces from both versions
+// Interface definitions for type safety
 interface StatCard {
   icon: string;
   number: string;
@@ -35,12 +36,20 @@ interface Employee {
   department: string;
 }
 
+interface QuickAction {
+  icon: string;
+  label: string;
+  route: string;
+  color: string;
+  bgColor: string;
+}
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule, // Added RouterModule for navigation
+    RouterModule,
     SidebarComponent,
     HeroRowComponent,
     StatsComponent,
@@ -53,12 +62,13 @@ interface Employee {
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  // Merged properties from both versions
+  // Dashboard metadata
   title = 'Dashboard';
   welcomeMessage = 'Welcome back, Alex! 👋';
-  subtitle = 'Here's what's happening in the system today.';
+  subtitle = 'Here\'s what\'s happening in the system today.';
   userRole = 'Administrator';
 
+  // Statistics data for dashboard cards
   stats: StatCard[] = [
     {
       icon: 'group',
@@ -94,6 +104,7 @@ export class DashboardComponent {
     }
   ];
 
+  // Recent flight assignments data
   recentFlightAssignments: FlightAssignment[] = [
     {
       flightCode: 'FL1234',
@@ -137,6 +148,7 @@ export class DashboardComponent {
     }
   ];
 
+  // Recent employees data
   recentEmployees: Employee[] = [
     {
       id: 'E1001',
@@ -170,7 +182,8 @@ export class DashboardComponent {
     }
   ];
 
-  quickActions = [
+  // Quick actions for dashboard navigation
+  quickActions: QuickAction[] = [
     {
       icon: 'person_add',
       label: 'Add Employee',
@@ -208,3 +221,4 @@ export class DashboardComponent {
     }
   ];
 }
+```

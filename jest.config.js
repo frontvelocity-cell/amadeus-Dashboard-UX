@@ -6,14 +6,20 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
   globalSetup: 'jest-preset-angular/global-setup',
   
-  // Merged test matching patterns - combining both specific and general patterns
+  // Merged test matching patterns - comprehensive coverage for all test file locations
   testMatch: [
     '**/__tests__/**/*.spec.ts',
     '**/__tests__/**/*.+(ts|js)',
     '**/*.(test|spec).+(ts|js)'
   ],
   
-  // Combined module name mapping - using dynamic tsconfig paths with manual alias fallback
+  // Ignore patterns for better performance
+  testPathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+    '<rootDir>/dist/'
+  ],
+  
+  // Combined module name mapping - dynamic tsconfig paths with manual alias fallback
   moduleNameMapping: {
     ...pathsToModuleNameMapper(compilerOptions.paths || {}, {
       prefix: '<rootDir>/'
@@ -28,12 +34,16 @@ module.exports = {
   
   testEnvironment: 'jsdom',
   
-  // Coverage configuration - merged from both configs
+  // Coverage configuration - merged patterns for comprehensive coverage
   collectCoverage: true,
   collectCoverageFrom: [
+    'src/**/*.ts',
     'src/app/**/*.ts',
-    '!src/app/**/*.spec.ts',
-    '!src/app/**/*.module.ts'
+    '!src/**/*.d.ts',
+    '!src/**/*.spec.ts',
+    '!src/**/*.module.ts',
+    '!src/main.ts',
+    '!src/polyfills.ts'
   ],
   coverageDirectory: 'coverage',
   coverageReporters: ['html', 'text-summary', 'text', 'lcov']

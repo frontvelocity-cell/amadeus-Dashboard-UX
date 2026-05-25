@@ -8,8 +8,10 @@ import { FlightAssignmentsComponent } from './components/flight-assignments/flig
 import { AdministrationComponent } from './components/administration/administration.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 
-// Merged routing configuration - combined both versions and removed duplicate routes
-// Added all unique routes from both configurations while maintaining proper order
+// Merged Angular routing configuration
+// Combined both route configurations, removed duplicate imports and routes
+// Maintained hierarchical structure with employees sub-routes
+// Preserved proper route order with wildcard route at the end
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },

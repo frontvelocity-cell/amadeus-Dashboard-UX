@@ -17,25 +17,26 @@ describe('AppComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create the app', () => {
+  // Merged: Combined "should create" and "should create the app" tests
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  // Merged title test - handles both possible title values from different versions
+  // Merged: Enhanced title test to handle multiple possible title values
   it('should have a valid title', () => {
     expect(component.title).toBeDefined();
     // Supports both 'flight-management-dashboard' and 'dashboard-app' titles
     expect(['flight-management-dashboard', 'dashboard-app']).toContain(component.title);
   });
 
-  // Merged layout structure test - checks for comprehensive layout components
+  // Merged: Comprehensive layout structure test combining all UI elements
   it('should render the complete layout structure', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     
-    // Check for navigation elements (from first version)
+    // Check for navigation elements
     expect(compiled.querySelector('nav')).toBeTruthy();
     
-    // Check for specific layout components (from second version)
+    // Check for specific layout components
     expect(compiled.querySelector('app-topbar')).toBeTruthy();
     expect(compiled.querySelector('app-sidebar')).toBeTruthy();
     expect(compiled.querySelector('app-footer')).toBeTruthy();
@@ -44,7 +45,7 @@ describe('AppComponent', () => {
     expect(compiled.querySelector('router-outlet')).toBeTruthy();
   });
 
-  // Merged title rendering test - checks for title display in navigation
+  // Merged: Title rendering test with flexible content checking
   it('should render app title in navigation', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const titleElement = compiled.querySelector('h1');

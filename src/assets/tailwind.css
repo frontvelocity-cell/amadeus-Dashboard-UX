@@ -44,12 +44,13 @@ html,
 /*
 1. Remove the margin in all browsers.
 2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
+3. Custom font family override for Inter font
 */
 
 body {
   margin: 0; /* 1 */
   line-height: inherit; /* 2 */
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Custom font family */
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* 3 - Custom font family */
 }
 
 /* Additional reset styles */
@@ -217,7 +218,7 @@ img, video {
   display: none;
 }
 
-/* CSS Variables for Tailwind features */
+/* CSS Variables for Tailwind features - merged and deduplicated */
 *, ::after, ::before {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
@@ -318,6 +319,41 @@ img, video {
   --tw-backdrop-sepia: ;
 }
 
+/* Container responsive breakpoints */
+.container {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
 /* Custom component classes */
 .btn-primary {
   background-color: rgb(37 99 235);
@@ -387,41 +423,6 @@ img, video {
   color: rgb(17 24 39);
 }
 
-/* Container responsive breakpoints */
-.container {
-  width: 100%;
-}
-
-@media (min-width: 640px) {
-  .container {
-    max-width: 640px;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 768px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
-  }
-}
-
-@media (min-width: 1536px) {
-  .container {
-    max-width: 1536px;
-  }
-}
-
 /* Utility classes - merged and deduplicated */
 .sr-only {
   position: absolute;
@@ -435,6 +436,7 @@ img, video {
   border-width: 0;
 }
 
+/* Position utilities */
 .pointer-events-none { pointer-events: none; }
 .fixed { position: fixed; }
 .absolute { position: absolute; }
@@ -563,6 +565,7 @@ img, video {
 .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
 .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
 .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+.py-8 { padding-top: 2rem; padding-bottom: 2rem; }
 .pt-8 { padding-top: 2rem; }
 
 /* Transform utilities */
@@ -727,6 +730,7 @@ img, video {
 .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
 .text-2xl { font-size: 1.5rem; line-height: 2rem; }
 .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+.text-6xl { font-size: 3.75rem; line-height: 1; }
 .text-9xl { font-size: 8rem; line-height: 1; }
 
 .font-medium { font-weight: 500; }
@@ -769,6 +773,12 @@ img, video {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.shadow-md {
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
 /* Focus and ring utilities */
 .outline-none {
   outline: 2px solid transparent;
@@ -790,7 +800,13 @@ img, video {
   --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
 }
 
-/* Transition utilities */
+/* Transition utilities - merged and deduplicated */
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
 .transition-colors {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -805,6 +821,10 @@ img, video {
 
 .duration-200 {
   transition-duration: 200ms;
+}
+
+.duration-300 {
+  transition-duration: 300ms;
 }
 
 /* Hover state utilities */

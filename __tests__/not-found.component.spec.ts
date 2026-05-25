@@ -21,20 +21,15 @@ describe('NotFoundComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // Merged test for 404 display with improved type safety and consistent assertion
-  it('should display 404 error', () => {
+  // Merged test combining 404 display and error message validation with improved type safety
+  it('should render 404 error message', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent?.trim()).toBe('404');
-  });
-
-  // Merged test for error message with consistent naming and assertion
-  it('should display error message', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h2')?.textContent?.trim()).toBe('Page Not Found');
   });
 
-  // Merged test for dashboard link with consistent naming and improved assertions
-  it('should have dashboard link', () => {
+  // Merged test for dashboard link with consistent naming and comprehensive assertions
+  it('should have link to dashboard', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const dashboardLink = compiled.querySelector('a[routerLink="/dashboard"]');
     expect(dashboardLink).toBeTruthy();

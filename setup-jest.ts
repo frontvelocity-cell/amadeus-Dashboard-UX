@@ -1,5 +1,3 @@
-setupTests.js
-```javascript
 // Unified setup file for Jest testing environment across React, Angular, and Vue
 // Consolidated setup configuration with framework-specific optimizations
 
@@ -46,7 +44,7 @@ Object.defineProperty(document.body.style, 'transform', {
   })
 });
 
-// Vue.js specific setup
+// Vue.js specific setup and universal matchMedia mock
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation(query => ({
@@ -60,10 +58,7 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: jest.fn(),
   })),
 });
-```
 
-jest.config.js
-```javascript
 // Unified Jest configuration supporting React, Angular, and Vue
 // Optimized for multi-framework testing with shared configuration
 
@@ -153,10 +148,7 @@ module.exports = {
   // Timeout configuration
   testTimeout: 10000
 };
-```
 
-babel.config.js
-```javascript
 // Unified Babel configuration for React, Vue, Angular, and React Native
 // Optimized for multi-framework development with environment-specific configurations
 
@@ -249,10 +241,7 @@ module.exports = {
     }
   }
 };
-```
 
-tsconfig.json
-```json
 {
   "compilerOptions": {
     "target": "ES2020",
@@ -332,4 +321,3 @@ tsconfig.json
     "experimentalDisableTemplateSupport": false
   }
 }
-```
