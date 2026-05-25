@@ -1,0 +1,87 @@
+<div class="p-6">
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold text-gray-900">Administration</h1>
+    <p class="text-gray-600 mt-2">System administration and configuration</p>
+  </div>
+
+  <!-- System Stats -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+    <div class="bg-white rounded-lg p-6 shadow-sm">
+      <h3 class="text-lg font-semibold text-gray-900">{{ systemStats.totalUsers }}</h3>
+      <p class="text-gray-600">Total Users</p>
+    </div>
+    <div class="bg-white rounded-lg p-6 shadow-sm">
+      <h3 class="text-lg font-semibold text-green-600">{{ systemStats.activeUsers }}</h3>
+      <p class="text-gray-600">Active Users</p>
+    </div>
+    <div class="bg-white rounded-lg p-6 shadow-sm">
+      <h3 class="text-lg font-semibold text-blue-600">{{ systemStats.systemUptime }}</h3>
+      <p class="text-gray-600">System Uptime</p>
+    </div>
+    <div class="bg-white rounded-lg p-6 shadow-sm">
+      <h3 class="text-lg font-semibold text-orange-600">{{ systemStats.lastBackup }}</h3>
+      <p class="text-gray-600">Last Backup</p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Recent Activities -->
+    <div class="bg-white rounded-lg shadow-sm">
+      <div class="p-6 border-b border-gray-200">
+        <h2 class="text-lg font-semibold text-gray-900">Recent Activities</h2>
+      </div>
+      <div class="p-6">
+        <div class="space-y-4">
+          <div *ngFor="let activity of recentActivities" class="flex justify-between items-start">
+            <div>
+              <p class="text-sm font-medium text-gray-900">{{ activity.user }}</p>
+              <p class="text-sm text-gray-600">{{ activity.action }}</p>
+            </div>
+            <span class="text-xs text-gray-500">{{ activity.time }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- System Settings -->
+    <div class="bg-white rounded-lg shadow-sm">
+      <div class="p-6 border-b border-gray-200">
+        <h2 class="text-lg font-semibold text-gray-900">System Settings</h2>
+      </div>
+      <div class="p-6">
+        <div class="space-y-4">
+          <div *ngFor="let setting of systemSettings" class="flex justify-between items-center">
+            <span class="text-sm font-medium text-gray-900">{{ setting.name }}</span>
+            <button (click)="toggleSetting(setting)"
+                    class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors"
+                    [class.bg-blue-600]="setting.enabled"
+                    [class.bg-gray-200]="!setting.enabled">
+              <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
+                    [class.translate-x-6]="setting.enabled"
+                    [class.translate-x-1]="!setting.enabled"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Actions -->
+  <div class="mt-6 bg-white rounded-lg shadow-sm p-6">
+    <h2 class="text-lg font-semibold text-gray-900 mb-4">Admin Actions</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <button class="p-4 border border-gray-300 rounded-lg hover:bg-gray-50 text-left">
+        <h3 class="font-medium text-gray-900">Backup System</h3>
+        <p class="text-sm text-gray-600 mt-1">Create a full system backup</p>
+      </button>
+      <button class="p-4 border border-gray-300 rounded-lg hover:bg-gray-50 text-left">
+        <h3 class="font-medium text-gray-900">Generate Report</h3>
+        <p class="text-sm text-gray-600 mt-1">Create system usage report</p>
+      </button>
+      <button class="p-4 border border-gray-300 rounded-lg hover:bg-gray-50 text-left">
+        <h3 class="font-medium text-gray-900">Manage Users</h3>
+        <p class="text-sm text-gray-600 mt-1">Add, edit, or remove users</p>
+      </button>
+    </div>
+  </div>
+</div>

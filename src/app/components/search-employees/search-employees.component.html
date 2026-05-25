@@ -1,0 +1,62 @@
+<div class="p-6">
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold text-gray-900">Search Employees</h1>
+    <p class="text-gray-600 mt-2">Find employees by name, ID, designation, or department</p>
+  </div>
+
+  <div class="bg-white rounded-lg shadow-sm p-6">
+    <div class="flex space-x-4 mb-6">
+      <div class="flex-1">
+        <input type="text" 
+               [(ngModel)]="searchQuery"
+               (input)="onSearch()"
+               placeholder="Search employees..."
+               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+      </div>
+      <button (click)="clearSearch()" 
+              class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+        Clear
+      </button>
+    </div>
+
+    <div *ngIf="isSearching" class="text-center py-8">
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      <p class="mt-2 text-gray-600">Searching...</p>
+    </div>
+
+    <div *ngIf="!isSearching && searchQuery && searchResults.length === 0" class="text-center py-8">
+      <p class="text-gray-600">No employees found matching your search.</p>
+    </div>
+
+    <div *ngIf="searchResults.length > 0" class="overflow-x-auto">
+      <table class="w-full">
+        <thead class="bg-purple-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Employee ID</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Name</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Designation</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Department</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Status</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr *ngFor="let employee of searchResults">
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ employee.id }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ employee.name }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ employee.designation }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ employee.department }}</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full"
+                    [class.bg-green-100]="employee.status === 'Active'"
+                    [class.text-green-800]="employee.status === 'Active'"
+                    [class.bg-red-100]="employee.status === 'Inactive'"
+                    [class.text-red-800]="employee.status === 'Inactive'">
+                {{ employee.status }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

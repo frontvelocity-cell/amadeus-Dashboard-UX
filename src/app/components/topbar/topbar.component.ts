@@ -1,3 +1,4 @@
+```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -12,3 +13,4 @@ export class TopbarComponent {
   profileName = 'Alex Thompson';
   profileRole = 'Administrator';
 }
+```

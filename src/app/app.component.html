@@ -1,3 +1,4 @@
+```html
 <div class="min-h-screen bg-gray-50">
   <!-- Merged topbar navigation with improved styling -->
   <nav class="bg-white shadow-sm border-b">
@@ -13,8 +14,17 @@
     </div>
   </nav>
   
-  <!-- Main content area with consistent spacing -->
-  <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-    <router-outlet></router-outlet>
-  </main>
+  <!-- Sidebar component for navigation - conditionally shown -->
+  <div class="flex">
+    <app-sidebar class="fixed left-0 top-16 h-full w-64 bg-white shadow-sm border-r z-10"></app-sidebar>
+    
+    <!-- Main content area with responsive layout and sidebar spacing -->
+    <main class="flex-1 ml-64 mt-0 max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+  
+  <!-- Footer component -->
+  <app-footer class="mt-auto"></app-footer>
 </div>
+```

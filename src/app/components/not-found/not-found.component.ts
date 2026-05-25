@@ -5,10 +5,8 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-not-found',
   standalone: true,
-  imports: [CommonModule, RouterModule], // Merged imports - kept CommonModule for potential template directives
+  imports: [CommonModule, RouterModule],
   templateUrl: './not-found.component.html',
   styleUrls: ['./not-found.component.css']
 })
-export class NotFoundComponent {
-  // Merged class body - kept consistent formatting with proper closing brace
-}
+export class NotFoundComponent {}

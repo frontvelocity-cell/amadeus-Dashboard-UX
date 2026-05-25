@@ -21,24 +21,24 @@ describe('NotFoundComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // Merged and improved test for 404 display - added type safety and null checking
+  // Merged test for 404 display with improved type safety and consistent assertion
   it('should display 404 error', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('404');
+    expect(compiled.querySelector('h1')?.textContent?.trim()).toBe('404');
   });
 
-  // Additional test from second version - validates Page Not Found message
-  it('should render "Page Not Found" message', () => {
+  // Merged test for error message with consistent naming and assertion
+  it('should display error message', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h2')?.textContent).toContain('Page Not Found');
+    expect(compiled.querySelector('h2')?.textContent?.trim()).toBe('Page Not Found');
   });
 
-  // Additional test from second version - validates navigation link
-  it('should have link to dashboard', () => {
+  // Merged test for dashboard link with consistent naming and improved assertions
+  it('should have dashboard link', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const link = compiled.querySelector('a[routerLink="/dashboard"]');
-    expect(link).toBeTruthy();
-    expect(link?.textContent).toContain('Go to Dashboard');
+    const dashboardLink = compiled.querySelector('a[routerLink="/dashboard"]');
+    expect(dashboardLink).toBeTruthy();
+    expect(dashboardLink?.textContent?.trim()).toBe('Go to Dashboard');
   });
 });
 ```

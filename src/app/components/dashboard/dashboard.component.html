@@ -4,41 +4,183 @@
   <app-sidebar></app-sidebar>
 
   <!-- Main Content -->
-  <main class="flex-1 bg-gray-50 p-8">
+  <main class="flex-1 bg-gray-50 p-6 space-y-6">
     <!-- Hero Row -->
-    <app-hero-row></app-hero-row>
+    <div class="flex justify-between items-start">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">{{ welcomeMessage || 'Dashboard' }}</h1>
+        <p class="text-gray-600 mt-2">{{ subtitle || 'Welcome to your dashboard' }}</p>
+      </div>
+      
+      <!-- Role Card -->
+      <div class="bg-white rounded-lg p-4 shadow-sm flex items-center space-x-4">
+        <div class="w-12 h-12 bg-blue-900 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17 11c.34 0 .67.04 1 .09V6.27L10.5 3L3 6.27v4.91c0 4.54 3.2 8.79 7.5 9.82.55-.13 1.08-.32 1.6-.55-.69-.98-1.1-2.17-1.1-3.45 0-3.31 2.69-6 6-6z"/>
+          </svg>
+        </div>
+        <div>
+          <p class="text-sm text-gray-600">Role</p>
+          <p class="font-semibold text-purple-900">{{ userRole || 'User' }}</p>
+        </div>
+      </div>
+    </div>
 
-    <!-- Stats Section - Merged inline stats with component -->
-    <section class="mb-8">
-      <app-stats></app-stats>
-      <!-- Fallback inline stats if component not available -->
-      <div class="bg-white shadow rounded-lg p-6">
+    <!-- Stats Section - Merged component with fallback -->
+    <section>
+      <!-- Primary stats component -->
+      <app-stats *ngIf="useStatsComponent"></app-stats>
+      
+      <!-- Enhanced fallback stats with dynamic data -->
+      <div *ngIf="!useStatsComponent" class="bg-white shadow rounded-lg p-6">
         <h2 class="text-2xl font-bold text-gray-900 mb-4">{{ title || 'Dashboard Statistics' }}</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <h3 class="text-lg font-semibold text-blue-900 mb-2">Total Users</h3>
-            <p class="text-3xl font-bold text-blue-600">1,234</p>
-          </div>
-          <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-            <h3 class="text-lg font-semibold text-green-900 mb-2">Revenue</h3>
-            <p class="text-3xl font-bold text-green-600">$12,345</p>
-          </div>
-          <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
-            <h3 class="text-lg font-semibold text-purple-900 mb-2">Orders</h3>
-            <p class="text-3xl font-bold text-purple-600">567</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Dynamic stats cards -->
+          <div *ngFor="let stat of stats || defaultStats" class="bg-white rounded-lg p-6 shadow-sm">
+            <div class="flex items-start justify-between">
+              <div class="flex-1">
+                <p class="text-2xl font-bold" [ngClass]="stat.color || 'text-blue-600'">{{ stat.number }}</p>
+                <p class="text-gray-900 font-medium mt-2">{{ stat.title }}</p>
+                <p class="text-gray-600 text-sm mt-1">{{ stat.caption }}</p>
+              </div>
+              <div class="w-14 h-14 rounded-lg flex items-center justify-center" [ngClass]="stat.bgColor || 'bg-blue-50'">
+                <div class="w-6 h-6 text-blue-900">
+                  <!-- Dynamic SVG icons based on stat.icon -->
+                  <svg *ngIf="stat.icon === 'group'" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A3 3 0 0 0 17.06 7H14.94c-1.4 0-2.67.93-3.06 2.37L9.34 17H12v6h8z"/>
+                  </svg>
+                  <svg *ngIf="stat.icon === 'work'" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20 6h-2.5l-1.1-1.4C16.1 4.2 15.7 4 15.2 4H8.8c-.5 0-.9.2-1.2.6L6.5 6H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/>
+                  </svg>
+                  <svg *ngIf="stat.icon === 'flight'" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                  </svg>
+                  <svg *ngIf="stat.icon === 'calendar'" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                  </svg>
+                  <!-- Default icon for fallback -->
+                  <svg *ngIf="!stat.icon" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Recent Data Section -->
-    <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-      <app-recent-flights></app-recent-flights>
-      <app-recent-employees></app-recent-employees>
+    <!-- Recent Data Section - Enhanced with component and fallback -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Recent Flight Assignments -->
+      <div>
+        <app-recent-flights *ngIf="useFlightsComponent"></app-recent-flights>
+        
+        <!-- Fallback Flight Assignments Table -->
+        <div *ngIf="!useFlightsComponent" class="bg-white rounded-lg shadow-sm">
+          <div class="p-6 border-b border-gray-200">
+            <div class="flex justify-between items-center">
+              <h3 class="text-lg font-semibold text-gray-900">Recent Flight Assignments</h3>
+              <a routerLink="/flight-assignments" class="text-sm text-blue-900 hover:underline">View All</a>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-purple-50">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Flight Code</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Employee</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Route</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Travel Date</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Status</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr *ngFor="let assignment of recentFlightAssignments">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ assignment.flightCode }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ assignment.employee }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ assignment.route }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ assignment.travelDate }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full" [ngClass]="assignment.statusColor">
+                      {{ assignment.status }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Employees -->
+      <div>
+        <app-recent-employees *ngIf="useEmployeesComponent"></app-recent-employees>
+        
+        <!-- Fallback Employees Table -->
+        <div *ngIf="!useEmployeesComponent" class="bg-white rounded-lg shadow-sm">
+          <div class="p-6 border-b border-gray-200">
+            <div class="flex justify-between items-center">
+              <h3 class="text-lg font-semibold text-gray-900">Recent Employees</h3>
+              <a routerLink="/employees" class="text-sm text-blue-900 hover:underline">View All</a>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-purple-50">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Employee ID</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Name</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Designation</th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Department</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr *ngFor="let employee of recentEmployees">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ employee.id }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ employee.name }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ employee.designation }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ employee.department }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- Quick Actions -->
-    <app-quick-actions></app-quick-actions>
+    <!-- Quick Actions - Enhanced with component and fallback -->
+    <div>
+      <app-quick-actions *ngIf="useQuickActionsComponent"></app-quick-actions>
+      
+      <!-- Fallback Quick Actions -->
+      <div *ngIf="!useQuickActionsComponent" class="bg-white rounded-lg p-6 shadow-sm">
+        <h3 class="text-lg font-semibold text-gray-900 mb-6">Quick Actions</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <a *ngFor="let action of quickActions || defaultQuickActions" 
+             [routerLink]="action.route"
+             class="flex flex-col items-center p-4 rounded-lg transition-colors hover:shadow-md"
+             [ngClass]="action.bgColor || 'bg-gray-50 hover:bg-gray-100'">
+            <div class="w-8 h-8 mb-3" [ngClass]="action.color || 'text-gray-600'">
+              <svg *ngIf="action.icon === 'person_add'" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+              <svg *ngIf="action.icon === 'search'" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+              </svg>
+              <svg *ngIf="action.icon === 'report'" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+              </svg>
+              <!-- Default action icon -->
+              <svg *ngIf="!action.icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+              </svg>
+            </div>
+            <span class="text-sm font-medium" [ngClass]="action.color || 'text-gray-600'">{{ action.label }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
   </main>
 </div>
 
